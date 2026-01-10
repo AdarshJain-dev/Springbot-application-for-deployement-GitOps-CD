@@ -1,0 +1,12 @@
+replicaCount: 1
+
+image:
+  tag: "dev"
+
+autoscaling:
+  enabled: false
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"

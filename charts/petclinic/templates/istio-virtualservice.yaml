@@ -1,0 +1,20 @@
+{{- if .Values.istio.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: petclinic
+spec:
+  hosts:
+    - {{ .Values.istio.host }}
+  gateways:
+    - {{ .Values.istio.gateway }}
+  http:
+  - route:
+      - destination:
+          host: {{ .Release.Name }}-stable
+        weight: {{ sub 100 .Values.canary.weight }}
+      - destination:
+          host: {{ .Release.Name }}-canary
+        weight: {{ .Values.canary.weight }}
+
+{{- end }}

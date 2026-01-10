@@ -1,0 +1,65 @@
+{{- if .Values.canary.enabled }}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-stable
+  labels:
+    app: {{ .Release.Name }}
+    version: stable
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+      version: stable
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+        version: stable
+    spec:
+      containers:
+        - name: petclinic
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-canary
+  labels:
+    app: {{ .Release.Name }}
+    version: canary
+spec:
+  replicas: {{ .Values.canary.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+      version: canary
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+        version: canary
+    spec:
+      containers:
+        - name: petclinic
+          image: "{{ .Values.image.repository }}:{{ .Values.canary.tag }}"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+
+{{- end }}

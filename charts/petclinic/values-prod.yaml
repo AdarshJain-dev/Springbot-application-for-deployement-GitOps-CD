@@ -1,0 +1,18 @@
+replicaCount: 3
+
+image:
+  tag: "prod"
+
+autoscaling:
+  enabled: true
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "1024Mi"
+  limits:
+    cpu: "1000m"
+    memory: "2048Mi"
+
+db:
+  password: "<REDACTED>"

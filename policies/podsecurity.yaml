@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-security-baseline
+  namespace: petclinic-prod
+  labels:
+    pod-security.kubernetes.io/enforce: restricted
