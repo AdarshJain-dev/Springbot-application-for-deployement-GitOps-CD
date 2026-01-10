@@ -23,6 +23,8 @@ spec:
           env:
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://{{ .Values.db.host }}:5432/{{ .Values.db.name }}
+            - name: SPRING_JPA_DATABASE_PLATFORM
+              value: org.hibernate.dialect.PostgreSQLDialect
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
