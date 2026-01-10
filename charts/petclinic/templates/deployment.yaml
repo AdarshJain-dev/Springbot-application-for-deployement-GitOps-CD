@@ -22,7 +22,7 @@ spec:
             - containerPort: 8080
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: {{ default "prod" (dig "spring" "profile" .Values) | quote }}
+              value: {{ .Values.spring.profile | quote }}
 
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://{{ .Values.db.host }}:5432/{{ .Values.db.name }}
