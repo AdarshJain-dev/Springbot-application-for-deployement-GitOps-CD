@@ -26,6 +26,7 @@ autoscaling:
 db:
   host: database-1.c7kw0sogqqlj.ap-southeast-1.rds.amazonaws.com
   name: database-1
+  secretName: petclinic-db-secret
 
 persistence:
   enabled: true
