@@ -24,14 +24,15 @@ autoscaling:
   targetCPUUtilizationPercentage: 70
 
 db:
-  host: database-1.c7kw0sogqqlj.ap-southeast-1.rds.amazonaws.com
-  name: database-1
+  host: petclinic-db        # ✅ Kubernetes Service name
+  name: petclinic           # ✅ DB name
   secretName: petclinic-db-secret
 
-persistence:
-  enabled: true
-  storageClass: gp3
-  size: 10Gi
+# ❌ REMOVE persistence (APP does not need it)
+# persistence:
+#   enabled: true
+#   storageClass: gp3
+#   size: 10Gi
 
 istio:
   enabled: true
