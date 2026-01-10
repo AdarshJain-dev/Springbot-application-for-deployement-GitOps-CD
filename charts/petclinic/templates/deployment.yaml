@@ -25,7 +25,7 @@ spec:
               value: {{ .Values.spring.profile | quote }}
 
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://{{ .Values.db.host }}:5432/{{ .Values.db.name }}
+              value: jdbc:postgresql://{{ .Values.db.host }}:5432/{{ .Values.db.name }}?ssl=false
 
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
@@ -43,7 +43,7 @@ spec:
               value: org.hibernate.dialect.PostgreSQLDialect
 
             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-              value: validate
+              value: update   # ✅ FIRST BOOT SAFE
 
           resources:
 {{ toYaml .Values.resources | indent 12 }}
@@ -61,6 +61,7 @@ spec:
               port: 8080
             initialDelaySeconds: 60
             periodSeconds: 20
+
           startupProbe:
             tcpSocket:
               port: 8080
