@@ -45,5 +45,5 @@ canary:
   tag: canary
   weight: 10
 
-  spring:
+spring:
   profile: prod
