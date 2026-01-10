@@ -24,10 +24,8 @@ autoscaling:
   targetCPUUtilizationPercentage: 70
 
 db:
-  host: petclinic-db
-  name: petclinic
-  user: petclinic
-  secretName: petclinic-db-secret
+  host: database-1.c7kw0sogqqlj.ap-southeast-1.rds.amazonaws.com
+  name: database-1
 
 persistence:
   enabled: true
