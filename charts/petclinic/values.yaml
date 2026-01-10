@@ -44,3 +44,6 @@ canary:
   replicas: 1
   tag: canary
   weight: 10
+
+  spring:
+  profile: prod
