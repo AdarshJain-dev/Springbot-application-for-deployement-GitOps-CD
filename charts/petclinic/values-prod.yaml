@@ -1,7 +1,7 @@
 replicaCount: 3
 
 image:
-  tag: "prod"
+  tag: "latest"
 
 autoscaling:
   enabled: true
@@ -16,3 +16,8 @@ resources:
 
 db:
   password: "<REDACTED>"
+
+canary:
+  enabled: true
+  tag: "latest"
+  weight: 10
