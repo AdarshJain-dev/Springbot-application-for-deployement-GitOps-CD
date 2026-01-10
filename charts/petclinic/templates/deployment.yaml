@@ -21,35 +21,49 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ default "prod" (dig "spring" "profile" .Values) | quote }}
+
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://{{ .Values.db.host }}:5432/{{ .Values.db.name }}
-            - name: SPRING_JPA_DATABASE_PLATFORM
-              value: org.hibernate.dialect.PostgreSQLDialect
-            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-               value: validate
+
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.db.secretName }}
                   key: username
+
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.db.secretName }}
                   key: password
+
+            - name: SPRING_JPA_DATABASE_PLATFORM
+              value: org.hibernate.dialect.PostgreSQLDialect
+
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: validate
+
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
-          startupProbe:
-              tcpSocket:
-                port: 8080
-              failureThreshold: 30
-              periodSeconds: 10
+            initialDelaySeconds: 60
+            periodSeconds: 20
 
+          startupProbe:
+            tcpSocket:
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 10
