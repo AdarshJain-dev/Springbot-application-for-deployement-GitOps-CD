@@ -1,0 +1,34 @@
+replicaCount: 2
+
+image:
+  repository: adarshjain428/petclinic
+  tag: latest
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+
+probes:
+  startup:
+    enabled: true
+    path: /actuator/health
+    failureThreshold: 30
+    periodSeconds: 10
+
+  readiness:
+    path: /actuator/health/readiness
+    initialDelaySeconds: 10
+    periodSeconds: 10
+
+  liveness:
+    path: /actuator/health/liveness
+    initialDelaySeconds: 30
+    periodSeconds: 15
+
+ingress:
+  host: petclinic.adarsh-jain-ecom.gt.tc
