@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: springapp-vs
+  namespace: spring-app
+spec:
+  hosts:
+    - petclinic.adarsh-jain-ecom.gt.tc
+  gateways:
+    - springapp-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: springboot-service
+            port:
+              number: 80
