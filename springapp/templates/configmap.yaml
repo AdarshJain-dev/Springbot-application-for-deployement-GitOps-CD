@@ -5,4 +5,6 @@ metadata:
   namespace: spring-app
 data:
   SPRING_PROFILES_ACTIVE: prod
-  # any other config
+  DB_HOST: mysql
+  DB_PORT: "3306"
+  DB_NAME: petclinic

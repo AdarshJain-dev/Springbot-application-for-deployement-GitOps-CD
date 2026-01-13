@@ -1,12 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pvc
-  namespace: petclinic-prod
+  name: mysql-pvc
+  namespace: spring-app
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: gp3
   resources:
     requests:
-      storage: 20Gi
+      storage: 10Gi

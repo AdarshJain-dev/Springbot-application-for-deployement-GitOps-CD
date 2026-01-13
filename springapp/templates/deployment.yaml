@@ -24,6 +24,33 @@ spec:
                 configMapKeyRef:
                   name: app-config
                   key: SPRING_PROFILES_ACTIVE
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: DB_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: DB_PASSWORD
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_PORT
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_NAME
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
