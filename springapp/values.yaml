@@ -17,6 +17,7 @@ probes:
   startup:
     enabled: true
     path: /actuator/health
+    initialDelaySeconds: 60
     failureThreshold: 30
     periodSeconds: 10
 
