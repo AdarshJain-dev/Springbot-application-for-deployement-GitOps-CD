@@ -25,7 +25,7 @@ spec:
                   name: app-config
                   key: SPRING_PROFILES_ACTIVE
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)?useSSL=false&allowPublicKeyRetrieval=true
+              value: jdbc:mysql://mysql:3306/petclinic?useSSL=false&allowPublicKeyRetrieval=true
             - name: SPRING_JPA_DATABASE_PLATFORM
               value: org.hibernate.dialect.MySQLDialect
             - name: SPRING_DATASOURCE_USERNAME
